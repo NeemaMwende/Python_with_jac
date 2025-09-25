@@ -30,4 +30,24 @@
 # }
 
 
+import from byllm.llm { Model }
+
+glob llm = Model(model_name="gemini/gemini-2.5-flash");
+
+def get_lyrics(audio_data: bytes) -> str by llm():
+    """
+    You are a music transcription expert. Listen to the provided audio data and return the lyrics as accurately as possible.
+    """
+
+with entry {
+    print("Welcome to the Lyrics Bot!")
+    audio_path = input("Please enter the path to your song audio file: ")
+    f = open(audio_path, "rb")
+    audio_data = f.read()
+    f.close()
+    lyrics = get_lyrics(audio_data)
+    print("\nLyrics:")
+    print(lyrics)
+}
+
 
