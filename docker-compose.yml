@@ -1,0 +1,7 @@
+version: "3.8"
+services:
+  jac-assess:
+    build: .
+    env_file:
+      - .env
+    tty: true

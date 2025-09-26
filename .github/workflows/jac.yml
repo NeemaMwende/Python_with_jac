@@ -1,0 +1,28 @@
+name: Jac Assess CI
+
+on:
+  push:
+    paths:
+      - "**.jac"
+  pull_request:
+    paths:
+      - "**.jac"
+
+jobs:
+  jac-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: docker build -t jac-assess .
+
+      - name: Run Jac Assess in Docker
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          echo -e "Test User\n2\nPython\nTest project\nDebugging\nResources\n" | \
+          docker run -i -e GEMINI_API_KEY jac-assess

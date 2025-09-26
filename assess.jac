@@ -7,6 +7,7 @@ def assess_level(name: str, answers: list) -> str by llm();
 with entry {
     print("Welcome to the Tech Level Assessor!");
     name = input("What is your name? ");
+    text = "Hello " + name + ", let's assess your tech skills.";
 
     questions = [
         "How many years have you been coding?",
