@@ -325,4 +325,29 @@
 
 
 
+# import gensim.downloader as api
 
+# # load the pre-trained Word2Vec model
+# model = api.load('word2vec-google-news-300')
+
+# # define word pairs to compute similarity for
+# word_pairs = [('learn', 'learning'), ('india', 'indian'), ('fame', 'famous')]
+
+# # compute similarity for each pair of words
+# for pair in word_pairs:
+#     similarity = model.similarity(pair[0], pair[1])
+#     print(f"Similarity between '{pair[0]}' and '{pair[1]}' using Word2Vec: {similarity:.3f}")
+
+
+# import gensim.downloader as api
+
+# # load the pre-trained fastText model
+# fasttext_model = api.load("fasttext-wiki-news-subwords-300")
+
+# # define word pairs to compute similarity for
+# word_pairs = [('learn', 'learning'), ('india', 'indian'), ('fame', 'famous')]
+
+# # compute similarity for each pair of words
+# for pair in word_pairs:
+#     similarity = fasttext_model.similarity(pair[0], pair[1])
+#     print(f"Similarity between '{pair[0]}' and '{pair[1]}' using Word2Vec: {similarity:.3f}")
