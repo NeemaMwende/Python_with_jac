@@ -115,5 +115,9 @@ def OneHotEncoder(text):
 # print('\n',sentences[0])
 print('OneHotEncoded vector for sentence : "',
      sentences[0], '"is \n', OneHotEncoder(sentences[0]))
+for sent in sentences:
+    print(f'Sentence: "{sent}"')
+    print(OneHotEncoder(sent), '\n')
+
 
 
