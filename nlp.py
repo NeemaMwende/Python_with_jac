@@ -209,32 +209,72 @@
 
 
 
-import PyPDF2
-from sklearn.feature_extraction.text import TfidfVectorizer
+# import PyPDF2
+# from sklearn.feature_extraction.text import TfidfVectorizer
 
-# Load PDF and extract text
-pdf_path = "Neema.pdf"
-pdf_text = ""
+# # Load PDF and extract text
+# pdf_path = "Neema.pdf"
+# pdf_text = ""
 
-with open(pdf_path, "rb") as f:
-    reader = PyPDF2.PdfReader(f)
-    for page in reader.pages:
-        pdf_text += page.extract_text() + " "
+# with open(pdf_path, "rb") as f:
+#     reader = PyPDF2.PdfReader(f)
+#     for page in reader.pages:
+#         pdf_text += page.extract_text() + " "
 
-# Split into sentences
-sentences = pdf_text.split(".")
+# # Split into sentences
+# sentences = pdf_text.split(".")
 
-# Create TF-IDF
-tfidf_vect = TfidfVectorizer()
-TFIDF = tfidf_vect.fit_transform(sentences)
+# # Create TF-IDF
+# tfidf_vect = TfidfVectorizer()
+# TFIDF = tfidf_vect.fit_transform(sentences)
 
-# Show results
-print("Vocabulary (TF-IDF):", tfidf_vect.vocabulary_)
-print("TF-IDF Matrix:\n", TFIDF.toarray()[:5, :10])
+# # Show results
+# print("Vocabulary (TF-IDF):", tfidf_vect.vocabulary_)
+# print("TF-IDF Matrix:\n", TFIDF.toarray()[:5, :10])
 
-print("Matrix shape:", TFIDF.shape)  
-print("Features (words):", tfidf_vect.get_feature_names_out()[:20])  # first 20 words
-print("Non-zero entries:", (TFIDF > 0).sum())
+# print("Matrix shape:", TFIDF.shape)  
+# print("Features (words):", tfidf_vect.get_feature_names_out()[:20])  # first 20 words
+# print("Non-zero entries:", (TFIDF > 0).sum())
 
 
 
+
+import nltk
+# nltk.download('punkt') # Download 'punkt'
+# from nltk if it's not downloaded
+from nltk.tokenize import sent_tokenize
+from sklearn.feature_extraction.text import CountVectorizer
+
+Text = """GeeksForGeeks.
+         Geeks Learning Together.
+         GeeksForGeeks is famous for DSA.
+         Learning DSA"""
+
+# TOKENIZATION
+sentences = sent_tokenize(Text)
+sentences = [sent.lower().replace(".", "") for sent in sentences]
+print('Our Corpus:', sentences)
+
+# Ngram vectorization example with count
+# vectorizer and uni, bi, trigrams
+count_vect = CountVectorizer(ngram_range=(1, 3))
+
+# fit & transform will represent each sentences
+# as Bag of n-grams representation
+BOW_nGram = count_vect.fit_transform(sentences)
+
+# Get the vocabulary
+print("Our vocabulary:\n", count_vect.vocabulary_)
+
+# see the Bag of n-grams representation
+print('Ngram representation for "{}" is {}'
+      .format(sentences[0], BOW_nGram[0].toarray()))
+print('Ngram representation for "{}" is {}'
+      .format(sentences[1], BOW_nGram[1].toarray()))
+print('Ngram representation for "{}" is {}'.
+      format(sentences[2], BOW_nGram[2].toarray()))
+
+# Bag of n-grams representation for a new text
+BOW_nGram_ = count_vect.transform(["learning dsa from geeksforgeeks together"])
+print("Ngram representation for  'learning dsa from geeksforgeeks together' is",
+     BOW_nGram_.toarray())
