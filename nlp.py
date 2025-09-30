@@ -239,42 +239,90 @@
 
 
 
-import nltk
-# nltk.download('punkt') # Download 'punkt'
-# from nltk if it's not downloaded
-from nltk.tokenize import sent_tokenize
-from sklearn.feature_extraction.text import CountVectorizer
+# import nltk
+# # nltk.download('punkt') # Download 'punkt'
+# # from nltk if it's not downloaded
+# from nltk.tokenize import sent_tokenize
+# from sklearn.feature_extraction.text import CountVectorizer
 
-Text = """GeeksForGeeks.
-         Geeks Learning Together.
-         GeeksForGeeks is famous for DSA.
-         Learning DSA"""
+# Text = """GeeksForGeeks.
+#          Geeks Learning Together.
+#          GeeksForGeeks is famous for DSA.
+#          Learning DSA"""
 
-# TOKENIZATION
-sentences = sent_tokenize(Text)
-sentences = [sent.lower().replace(".", "") for sent in sentences]
-print('Our Corpus:', sentences)
+# # TOKENIZATION
+# sentences = sent_tokenize(Text)
+# sentences = [sent.lower().replace(".", "") for sent in sentences]
+# print('Our Corpus:', sentences)
 
-# Ngram vectorization example with count
-# vectorizer and uni, bi, trigrams
-count_vect = CountVectorizer(ngram_range=(1, 3))
+# # Ngram vectorization example with count
+# # vectorizer and uni, bi, trigrams
+# count_vect = CountVectorizer(ngram_range=(1, 3))
 
-# fit & transform will represent each sentences
-# as Bag of n-grams representation
-BOW_nGram = count_vect.fit_transform(sentences)
+# # fit & transform will represent each sentences
+# # as Bag of n-grams representation
+# BOW_nGram = count_vect.fit_transform(sentences)
 
-# Get the vocabulary
-print("Our vocabulary:\n", count_vect.vocabulary_)
+# # Get the vocabulary
+# print("Our vocabulary:\n", count_vect.vocabulary_)
 
-# see the Bag of n-grams representation
-print('Ngram representation for "{}" is {}'
-      .format(sentences[0], BOW_nGram[0].toarray()))
-print('Ngram representation for "{}" is {}'
-      .format(sentences[1], BOW_nGram[1].toarray()))
-print('Ngram representation for "{}" is {}'.
-      format(sentences[2], BOW_nGram[2].toarray()))
+# # see the Bag of n-grams representation
+# print('Ngram representation for "{}" is {}'
+#       .format(sentences[0], BOW_nGram[0].toarray()))
+# print('Ngram representation for "{}" is {}'
+#       .format(sentences[1], BOW_nGram[1].toarray()))
+# print('Ngram representation for "{}" is {}'.
+#       format(sentences[2], BOW_nGram[2].toarray()))
 
-# Bag of n-grams representation for a new text
-BOW_nGram_ = count_vect.transform(["learning dsa from geeksforgeeks together"])
-print("Ngram representation for  'learning dsa from geeksforgeeks together' is",
-     BOW_nGram_.toarray())
+# # Bag of n-grams representation for a new text
+# BOW_nGram_ = count_vect.transform(["learning dsa from geeksforgeeks together"])
+# print("Ngram representation for  'learning dsa from geeksforgeeks together' is",
+#      BOW_nGram_.toarray())
+
+
+
+
+
+# import nltk
+# # nltk.download('punkt') # Download 'punkt'
+# # from nltk if it's not downloaded
+# from nltk.tokenize import sent_tokenize
+# from sklearn.feature_extraction.text import TfidfVectorizer
+
+# Text = """GeeksForGeeks.
+#          Geeks Learning Together.
+#          GeeksForGeeks is famous for DSA.
+#          Learning DSA"""
+
+# # TOKENIZATION
+# sentences = sent_tokenize(Text)
+# sentences = [sent.lower().replace(".", "") for sent in sentences]
+# print('Our Corpus:', sentences)
+
+# # TF-IDF
+# tfidf = TfidfVectorizer()
+# tfidf_matrix = tfidf.fit_transform(sentences)
+
+# # All words in the vocabulary.
+# print("vocabulary", tfidf.get_feature_names_out())
+# # IDF value for all words in the vocabulary
+# print("IDF for all words in the vocabulary :\n", tfidf.idf_)
+
+# # TFIDF representation for all documents in our corpus
+# print('\nTFIDF representation for "{}" is \n{}'
+#       .format(sentences[0], tfidf_matrix[0].toarray()))
+# print('TFIDF representation for "{}" is \n{}'
+#       .format(sentences[1], tfidf_matrix[1].toarray()))
+# print('TFIDF representation for "{}" is \n{}'
+#       .format(sentences[2],tfidf_matrix[2].toarray()))
+
+# # TFIDF representation for a new text
+# matrix = tfidf.transform(["learning dsa from geeksforgeeks"])
+# print("\nTFIDF representation for  'learning dsa from geeksforgeeks' is\n",
+#       matrix.toarray())  
+
+
+
+
+
+
