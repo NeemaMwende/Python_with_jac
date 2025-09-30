@@ -122,28 +122,58 @@
 
 
 
-import nltk
-#nltk.download('punkt') # Download 'punkt' from nltk if it's not downloaded
-from nltk.tokenize import sent_tokenize
-from sklearn.feature_extraction.text import CountVectorizer
-Text = """GeeksForGeeks.
-Geeks Learning Together.
-GeeksForGeeks is famous for DSA.
-Learning DSA"""
-# TOKENIZATION
-sentences = sent_tokenize(Text)
-sentences = [sent.lower().replace(".","") for sent in sentences]
-print('Our Corpus:',sentences)
-#CountVectorizer : Convert a collection of text documents to a matrix of token counts.
+# import nltk
+# #nltk.download('punkt') # Download 'punkt' from nltk if it's not downloaded
+# from nltk.tokenize import sent_tokenize
+# from sklearn.feature_extraction.text import CountVectorizer
+# Text = """GeeksForGeeks.
+# Geeks Learning Together.
+# GeeksForGeeks is famous for DSA.
+# Learning DSA"""
+# # TOKENIZATION
+# sentences = sent_tokenize(Text)
+# sentences = [sent.lower().replace(".","") for sent in sentences]
+# print('Our Corpus:',sentences)
+# #CountVectorizer : Convert a collection of text documents to a matrix of token counts.
+# count_vect = CountVectorizer()
+# # fit & transform will represent each sentences as BOW representation
+# BOW = count_vect.fit_transform(sentences)
+# # Get the vocabulary
+# print("Our vocabulary: ", count_vect.vocabulary_)
+# #see the BOW representation
+# print(f"BoW representation for {sentences[0]} {BOW[0].toarray()}")
+# print(f"BoW representation for {sentences[1]} {BOW[1].toarray()}")
+# print(f"BoW representation for {sentences[2]} {BOW[2].toarray()}")
+# # BOW representation for a new text
+# BOW_ = count_vect.transform(["learning dsa from geeksforgeeks"])
+# print("Bow representation for 'learning dsa from geeksforgeeks':", BOW_.toarray())
+
+
+
+
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+
+# Our sample corpus
+sentences = [
+    "geeksforgeeks",
+    "geeks learning together",
+    "geeksforgeeks is famous for dsa",
+    "learning dsa"
+]
+
+# ------------------------
+# Bag of Words
+# ------------------------
 count_vect = CountVectorizer()
-# fit & transform will represent each sentences as BOW representation
 BOW = count_vect.fit_transform(sentences)
-# Get the vocabulary
-print("Our vocabulary: ", count_vect.vocabulary_)
-#see the BOW representation
-print(f"BoW representation for {sentences[0]} {BOW[0].toarray()}")
-print(f"BoW representation for {sentences[1]} {BOW[1].toarray()}")
-print(f"BoW representation for {sentences[2]} {BOW[2].toarray()}")
-# BOW representation for a new text
-BOW_ = count_vect.transform(["learning dsa from geeksforgeeks"])
-print("Bow representation for 'learning dsa from geeksforgeeks':", BOW_.toarray())
+print("Vocabulary (BoW):", count_vect.vocabulary_)
+print("BoW Matrix:\n", BOW.toarray())
+
+# ------------------------
+# TF-IDF
+# ------------------------
+tfidf_vect = TfidfVectorizer()
+TFIDF = tfidf_vect.fit_transform(sentences)
+print("\nVocabulary (TF-IDF):", tfidf_vect.vocabulary_)
+print("TF-IDF Matrix:\n", TFIDF.toarray())
+
