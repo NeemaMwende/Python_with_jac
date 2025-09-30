@@ -80,44 +80,70 @@
 
 
 
+# import nltk
+# # nltk.download('punkt') # Download 'punkt'
+# # from nltk if it's not downloaded
+# from nltk.tokenize import sent_tokenize
+# Text = """Geeks For Geeks.
+#          Geeks Learning Together.
+#          Geeks For Geeks is famous for DSA.
+#          Learning DSA"""
+# sentences = sent_tokenize(Text)
+# sentences = [sent.lower().replace(".", "") for sent in sentences]
+# print('Tokenized Sentences :', sentences)
+
+# # Create the vocabulary
+# vocab = {}
+# count = 0
+# for sent in sentences:
+#     for word in sent.split():
+#         if word not in vocab:
+#             count = count + 1
+#             vocab[word] = count
+# print('vocabulary :', vocab)
+
+# # One Hot Encoding
+# def OneHotEncoder(text):
+#     onehot_encoded = []
+#     for word in text.split():
+#         temp = [0]*len(vocab)
+#         if word in vocab:
+#             temp[vocab[word]-1] = 1
+#             onehot_encoded.append(temp)
+#     return onehot_encoded
+
+# # print('\n',sentences[0])
+# print('OneHotEncoded vector for sentence : "',
+#      sentences[0], '"is \n', OneHotEncoder(sentences[0]))
+# for sent in sentences:
+#     print(f'Sentence: "{sent}"')
+#     print(OneHotEncoder(sent), '\n')
+
+
+
+
 import nltk
-# nltk.download('punkt') # Download 'punkt'
-# from nltk if it's not downloaded
+#nltk.download('punkt') # Download 'punkt' from nltk if it's not downloaded
 from nltk.tokenize import sent_tokenize
-Text = """Geeks For Geeks.
-         Geeks Learning Together.
-         Geeks For Geeks is famous for DSA.
-         Learning DSA"""
+from sklearn.feature_extraction.text import CountVectorizer
+Text = """GeeksForGeeks.
+Geeks Learning Together.
+GeeksForGeeks is famous for DSA.
+Learning DSA"""
+# TOKENIZATION
 sentences = sent_tokenize(Text)
-sentences = [sent.lower().replace(".", "") for sent in sentences]
-print('Tokenized Sentences :', sentences)
-
-# Create the vocabulary
-vocab = {}
-count = 0
-for sent in sentences:
-    for word in sent.split():
-        if word not in vocab:
-            count = count + 1
-            vocab[word] = count
-print('vocabulary :', vocab)
-
-# One Hot Encoding
-def OneHotEncoder(text):
-    onehot_encoded = []
-    for word in text.split():
-        temp = [0]*len(vocab)
-        if word in vocab:
-            temp[vocab[word]-1] = 1
-            onehot_encoded.append(temp)
-    return onehot_encoded
-
-# print('\n',sentences[0])
-print('OneHotEncoded vector for sentence : "',
-     sentences[0], '"is \n', OneHotEncoder(sentences[0]))
-for sent in sentences:
-    print(f'Sentence: "{sent}"')
-    print(OneHotEncoder(sent), '\n')
-
-
-
+sentences = [sent.lower().replace(".","") for sent in sentences]
+print('Our Corpus:',sentences)
+#CountVectorizer : Convert a collection of text documents to a matrix of token counts.
+count_vect = CountVectorizer()
+# fit & transform will represent each sentences as BOW representation
+BOW = count_vect.fit_transform(sentences)
+# Get the vocabulary
+print("Our vocabulary: ", count_vect.vocabulary_)
+#see the BOW representation
+print(f"BoW representation for {sentences[0]} {BOW[0].toarray()}")
+print(f"BoW representation for {sentences[1]} {BOW[1].toarray()}")
+print(f"BoW representation for {sentences[2]} {BOW[2].toarray()}")
+# BOW representation for a new text
+BOW_ = count_vect.transform(["learning dsa from geeksforgeeks"])
+print("Bow representation for 'learning dsa from geeksforgeeks':", BOW_.toarray())
