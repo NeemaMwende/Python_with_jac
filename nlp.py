@@ -180,8 +180,37 @@
 
 
 
+
+# import PyPDF2
+# from sklearn.feature_extraction.text import CountVectorizer
+
+# # Load PDF and extract text
+# pdf_path = "Neema.pdf"
+# pdf_text = ""
+
+# with open(pdf_path, "rb") as f:
+#     reader = PyPDF2.PdfReader(f)
+#     for page in reader.pages:
+#         pdf_text += page.extract_text() + " "
+
+# # Split into sentences (just as corpus input)
+# sentences = pdf_text.split(".")  
+
+# # Create BoW
+# count_vect = CountVectorizer()
+# BOW = count_vect.fit_transform(sentences)
+
+# # Show results
+# print("Vocabulary (BoW):", count_vect.vocabulary_)
+# print("BoW Matrix:\n", BOW.toarray())
+
+
+
+
+
+
 import PyPDF2
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 # Load PDF and extract text
 pdf_path = "Neema.pdf"
@@ -192,13 +221,20 @@ with open(pdf_path, "rb") as f:
     for page in reader.pages:
         pdf_text += page.extract_text() + " "
 
-# Split into sentences (just as corpus input)
-sentences = pdf_text.split(".")  
+# Split into sentences
+sentences = pdf_text.split(".")
 
-# Create BoW
-count_vect = CountVectorizer()
-BOW = count_vect.fit_transform(sentences)
+# Create TF-IDF
+tfidf_vect = TfidfVectorizer()
+TFIDF = tfidf_vect.fit_transform(sentences)
 
 # Show results
-print("Vocabulary (BoW):", count_vect.vocabulary_)
-print("BoW Matrix:\n", BOW.toarray())
+print("Vocabulary (TF-IDF):", tfidf_vect.vocabulary_)
+print("TF-IDF Matrix:\n", TFIDF.toarray()[:5, :10])
+
+print("Matrix shape:", TFIDF.shape)  
+print("Features (words):", tfidf_vect.get_feature_names_out()[:20])  # first 20 words
+print("Non-zero entries:", (TFIDF > 0).sum())
+
+
+
